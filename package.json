@@ -1,0 +1,46 @@
+{
+  "name": "urpg-dicebot",
+  "version": "1.0.0",
+  "description": "URPG Dicebot build using a MEAN stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Monbrey/urpg-dicebot.git"
+  },
+  "keywords": [
+    "urpg",
+    "dicebot",
+    "node",
+    "discord"
+  ],
+  "author": "Monbrey (Ryan Munro)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Monbrey/urpg-dicebot/issues"
+  },
+  "homepage": "https://github.com/Monbrey/urpg-dicebot#readme",
+  "dependencies": {
+    "discord.js": "^11.3.0",
+    "ejs": "^2.5.7",
+    "elo-rating": "^1.0.1",
+    "enmap": "^0.4.2",
+    "enmap-level": "^1.0.0",
+    "express": "^4.16.2",
+    "forever": "^0.15.3",
+    "heroku-logger": "^0.3.0",
+    "jimp": "^0.2.28",
+    "mongoose": "^4.13.9",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
+  }
+}
