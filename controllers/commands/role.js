@@ -5,9 +5,10 @@ var serverRoles = require('../../util/roleMap.js')
 
 exports.run = (client, message, args) => {
     const flags = message.flags
-    const list = flags.indexOf('-l') > -1 ? true : false
-    const remove = flags.indexOf('-r') > -1 ? true : false
-    const help = flags.indexOf('-h') > -1 ? true : false
+    console.log(message.flags)
+    const list = flags.indexOf('l') > -1 ? true : false
+    const remove = flags.indexOf('r') > -1 ? true : false
+    const help = flags.indexOf('h') > -1 ? true : false
 
     if(list) {
         message.channel.send(`Role names accepted: ${Object.keys(serverRoles).join(", ")}`)
@@ -45,7 +46,7 @@ exports.run = (client, message, args) => {
 
     if(permission) {
         if(remove) {
-            assignee.removeRole(role.id, `Role applied by ${message.author.username}`)
+            assignee.removeRole(role.id, `Role removed by ${message.author.username}`)
             .then(() => {
                 message.channel.send(`Role "${args[0]}" removed from ${assignee}`)
             })
