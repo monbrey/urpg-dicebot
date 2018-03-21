@@ -42,7 +42,7 @@ exports.run = (client, message, args) => {
     }
 
     //Permission check
-    var permission = invoker._roles.some(r=> role.assigners.includes(r))
+    var permission = invoker._roles.some(r => role.assigners.includes(r))
 
     if(permission) {
         if(remove) {
