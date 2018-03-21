@@ -2,9 +2,11 @@ var promises = []
 
 module.exports = (client, message) => {
     if(message.author.bot) return
+    message.author_guild = message.guild.members.get(message.author.id)
 
     const settings = client.config
     message.settings = settings
+
 
     if(message.content.indexOf(settings.prefix) !== 0) return
 
@@ -25,12 +27,8 @@ module.exports = (client, message) => {
         }
 
         //Mention, get the users object instead
-        if(arg[0] === "<" && arg[1] === "@") {
-            promises.push(
-                client.fetchUser(arg.substring(2,arg.length-1)).then((result) => {
-                    arg = result
-                })
-            )
+        if(arg.startsWith("<@")) {
+            arg = message.guild.members.get(arg.match(/\d+/g).join(''))
         }
 
         argsOut.push(arg)
