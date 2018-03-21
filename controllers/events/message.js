@@ -2,7 +2,8 @@ var promises = []
 
 module.exports = (client, message) => {
     if(message.author.bot) return
-    message.author_guild = message.guild.members.get(message.author.id)
+
+    if(message.guild) message.author_guild = message.guild.members.get(message.author.id)
 
     const settings = client.config
     message.settings = settings
@@ -27,7 +28,7 @@ module.exports = (client, message) => {
         }
 
         //Mention, get the users object instead
-        if(arg.startsWith("<@")) {
+        if(arg.startsWith("<@") && message.guild) {
             arg = message.guild.members.get(arg.match(/\d+/g).join(''))
         }
 

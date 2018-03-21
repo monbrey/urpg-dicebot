@@ -5,11 +5,13 @@ var serverRoles = require('../../util/roleMap.js')
 
 exports.run = (client, message, args) => {
     const flags = message.flags
-    console.log(message.flags)
     const list = flags.indexOf('l') > -1 ? true : false
     const remove = flags.indexOf('r') > -1 ? true : false
     const help = flags.indexOf('h') > -1 ? true : false
 
+    if(!message.guild || message.guild.name != "URPG")
+        return
+        
     if(list) {
         message.channel.send(`Role names accepted: ${Object.keys(serverRoles).join(", ")}`)
         return
