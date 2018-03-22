@@ -14,7 +14,10 @@ exports.run = (client, message, args) => {
         result.forEach((r) => {
             embed.fields.push({
                 name: `**${r.abilityName}**`,
-                value: `${r.desc}`
+                value: `
+|${r.announcement}|
+${r.desc}
+Note: ${r.additional}`
             })
         })
         message.channel.send({'embed': embed} )
