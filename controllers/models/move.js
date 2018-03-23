@@ -12,7 +12,11 @@ var moveSchema = new mongoose.Schema({
     sheerForce: Boolean,
     substitute: Boolean,
     snatch: Boolean,
-    magicCoat: Boolean
+    magicCoat: Boolean,
+    list: Array,
+    additional: String,
+    note: String,
+    zmove: String
 })
 
 module.exports = mongoose.model('Move', moveSchema)
