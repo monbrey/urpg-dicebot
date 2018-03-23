@@ -5,7 +5,7 @@ exports.run = (client, message, args) => {
     if(args.length == 0) return
 
     var search = args.join(' ')
-    Move.findOne({ 'abilityName': new RegExp(`^${search}$`, 'i') }, (err, result) => {
+    Move.findOne({ 'moveName': new RegExp(`^${search}$`, 'i') }, (err, result) => {
         if(err) {
             message.channel.send("Unknown error querying the database - let Monbrey know.")
             return
@@ -20,7 +20,7 @@ ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer
             message.channel.send({'embed':embed})
         }
         else {
-            Move.find({ 'abilityName': new RegExp(search, 'i') }, (err, result) => {
+            Move.find({ 'moveName': new RegExp(search, 'i') }, (err, result) => {
                 switch (result.length) {
                     case 0:
                         message.channel.send(`No results found for ${search}`)
