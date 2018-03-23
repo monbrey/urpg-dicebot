@@ -29,10 +29,15 @@ exports.run = (client, message, args) => {
                 embed.title += ` | ${getAnnouncement(result.announcement)}`
             }
             if(result.affects) {
-                embed.fields.push({
+                affects = result.affects.split('\\n')
+                field = {
                     name: `**Interacts with the following:**`,
-                    value: `${result.affects}`
+                    value: ``
+                }
+                affects.forEach(a => {
+                    field.value += `${a}\n`
                 })
+                embed.fields.push(field)
             }
             if(result.additional) {
                 embed.footer = {
@@ -60,10 +65,15 @@ exports.run = (client, message, args) => {
                             embed.title += ` | ${getAnnouncement(result.announcement)}`
                         }
                         if(result.affects) {
-                            embed.fields.push({
+                            affects = result.affects.split('\\n')
+                            field = {
                                 name: `**Interacts with the following:**`,
-                                value: `${result.affects}`
+                                value: ``
+                            }
+                            affects.forEach(a => {
+                                field.value += `${a}\n`
                             })
+                            embed.fields.push(field)
                         }
                         if(result.additional) {
                             embed.footer = {
