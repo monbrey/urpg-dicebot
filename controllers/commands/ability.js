@@ -45,7 +45,6 @@ exports.run = (client, message, args) => {
                 }
             }
             message.channel.send({'embed':embed})
-            return
         }
         else {
             Ability.find({ 'abilityName': new RegExp(search, 'i') }, (err, result) => {
