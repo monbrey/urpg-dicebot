@@ -22,7 +22,7 @@ ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer
             value: r.additional
         })
     }
-    if(r.list.length != 0) {
+    if(r.list && r.list.length != 0) {
         data = ""
         r.list.forEach(l => {
             data += `${l}\n`
@@ -41,20 +41,47 @@ ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer
     return embed
 }
 
-exports.run = (client, message, args) => {
-    if(args.length == 0) return
+getRandom = (callback) => {
+    invalid = ["After You","Assist","Bestow","Chatter","Copycat","Counter","Covet","Destiny Bond","Detect","Endure","Feint","Focus Punch","Follow Me","Freeze Shock","Helping Hand","Ice Burn","King's Shield","Me First","Metronome","Mimic","Mirror Coat","Mirror Move","Nature Power","Protect","Quash","Quick Guard","Rage Powder","Relic Song","Secret Sword","Sketch","Sleep Talk","Snarl","Snatch","Snore","Spiky Shield","Struggle","Switcheroo","Techno Blast","Thief","Transform","Trick","Wide Guard","V-Create"]
 
-    random = message.flags.indexOf('r') > -1? true : false
+    Move.count().exec((err, count) => {
+        randNum = Math.floor(Math.random() * count)
+
+        Move.findOne().skip(randNum).exec((err, result) => {
+            console.log(result)
+            if(invalid.indexOf(result.moveName) > -1)
+                getRandom(callback)
+            else
+                callback(result)
+        })
+    })
+}
+
+exports.run = (client, message, args) => {
+    if(args.length == 0 && message.flags.length == 0) {
+        message.channel.send(`\`\`\`Invalid move command
+        ${exports.help.usage}\`\`\``)
+        return
+    }
+
+    if(message.flags.indexOf('h') > -1) {
+        message.channel.send({'embed':{
+            "title":"!move",
+            "description": exports.help.description,
+            "fields": [{
+                "name": "Usage:",
+                "value": `\`\`\`${exports.help.usage}\`\`\``
+            }]
+        }})
+        return
+    }
+
+    random = message.flags.indexOf('m') > -1 ? true : false
 
     if(random) {
-        Move.count().exec((err, count) => {
-            randNum = Math.floor(Math.random() * count)
-
-            Move.findOne().skip(randNum).exec((err, result) => {
-                message.channel.send({'embed':generateSingle(result)})
-            })
+        getRandom(result => {
+            message.channel.send({'embed':generateSingle(result)})
         })
-
         return
     }
 
@@ -102,5 +129,10 @@ exports.conf = {
 
 exports.help = {
     name: "move",
-    category: "Game"
+    category: "Game",
+    description: "Lookup move data sources from the Reffing Encylopedia. Will return a list of partial matches, or full data for exact matches.",
+    usage: `
+!move <search>    Search for move(s) with a match to the
+                  <search> parameter
+!move -m          Get a random Metronome-compatible move`
 }
