@@ -13,45 +13,81 @@ exports.run = (client, message, args) => {
     if(args.length == 0) return
 
     var search = args.join(' ')
-    Ability.find({ 'abilityName': new RegExp(search, 'i') }, (err, result) => {
-        switch (result.length) {
-            case 0:
-                message.channel.send(`No results found for ${search}`)
-                return
-            case 1:
-                result = result[0]
-                embed = { 
-                    title: `${result.abilityName}`,
-                    desc: `${result.desc}`, 
-                }
-                if(result.announcement) {
-                    embed.title += ` | ${getAnnouncement(result.announcement)}`
-                }
-                if(result.affects) {
-                    embed.fields.push({
-                        name: `**Interacts with the following:**`,
-                        value: `${result.affects}`
-                    })
-                }
-                if(result.additional) {
-                    embed.footer = {
-                        text: result.additional
-                    }
-                }
-                break
-            default:
-                embed = { 
-                    title: `${result.length} result(s) found for "${search}"`, 
-                    desc: ``, 
-                }
-                result.forEach((r) => {
-                    embed.desc += r.abilityName+`\n`
-                })
-                embed.footer = "For more information, search again with one of the listed abilities"
-                break
+    Ability.findOne({ 'abilityName': new RegExp(`^${search}$`, 'i') }, (err, result) => {
+        if(err) {
+            message.channel.send("Unknown error querying the database - let Monbrey know.")
+            return
         }
+        if(result) {
+            embed = { 
+                title: `${result.abilityName}`,
+                description: `${result.desc}`, 
+                fields: [],
+                footer: {}
+            }
+            if(result.announcement) {
+                embed.title += ` | ${getAnnouncement(result.announcement)}`
+            }
+            if(result.affects) {
+                embed.fields.push({
+                    name: `**Interacts with the following:**`,
+                    value: `${result.affects}`
+                })
+            }
+            if(result.additional) {
+                embed.footer = {
+                    "text": result.additional
+                }
+            }
+            message.channel.send({'embed':embed})
+            return
+        }
+        else {
+            Ability.find({ 'abilityName': new RegExp(search, 'i') }, (err, result) => {
+                switch (result.length) {
+                    case 0:
+                        message.channel.send(`No results found for ${search}`)
+                        return
+                    case 1:
+                        result = result[0]
+                        embed = { 
+                            title: `${result.abilityName}`,
+                            description: `${result.desc}`, 
+                            fields: [],
+                            footer: {}
+                        }
+                        if(result.announcement) {
+                            embed.title += ` | ${getAnnouncement(result.announcement)}`
+                        }
+                        if(result.affects) {
+                            embed.fields.push({
+                                name: `**Interacts with the following:**`,
+                                value: `${result.affects}`
+                            })
+                        }
+                        if(result.additional) {
+                            embed.footer = {
+                                "text": result.additional
+                            }
+                        }
+                        break
+                    default:
+                        embed = { 
+                            title: `${result.length} result(s) found for "${search}"`, 
+                            description: ``, 
+                        }
+                        result.forEach((r) => {
+                            embed.description += r.abilityName+`\n`
+                        })
+                        embed.footer = {
+                            "text": "For more information, search again with one of the listed abilities"
+                        }
+                        break
+                }
 
-        message.channel.send({'embed': embed} )
+                message.channel.send({'embed': embed})
+            })
+        }
     })
 }
 
