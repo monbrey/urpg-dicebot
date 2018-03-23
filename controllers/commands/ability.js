@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const logger = require('heroku-logger')
 const Ability = require('../models/ability')
 
 getAnnouncement = (announce) => {
@@ -95,6 +96,7 @@ exports.run = (client, message, args) => {
                 }
 
                 message.channel.send({'embed': embed})
+                logger.info(`${message.author.username} searched for ${search} in ${message.guild.name}:${message.channel.name}`,{key:'ability'})
             })
         }
     })

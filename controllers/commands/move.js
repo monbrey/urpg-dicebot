@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const logger = require('heroku-logger')
 const Move = require('../models/move')
 
 generateSingle = (r) => {
@@ -120,6 +121,8 @@ exports.run = (client, message, args) => {
                 }
             })
         }
+
+        logger.info(`${message.author.username} searched for ${search} in ${message.guild.name}:${message.channel.name}`,{key:'move'})
     })
 }
 

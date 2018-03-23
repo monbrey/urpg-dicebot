@@ -39,9 +39,11 @@ exports.run = (client, message, args) => {
         roll = rolls.join(', ')
     }
 
-    var response = verify ? `${message.author.username} rolled ${roll} : verification ID #${Date.now()}` : `${message.author.username} rolled ${roll}`
+    var response = verify ? `${message.author.username} rolled ${roll}: verification ID #${Date.now()}` : `${message.author.username} rolled ${roll}`
     message.channel.send(response)
-    logger.info(response,{key:'dice'})
+
+    var log = `${Date.now()} - ${message.author.username} rolled ${roll} in ${message.guild.name}:${message.channel.name}`
+    logger.info(log,{key:'dice'})
 }
 
 exports.conf = {
