@@ -11,8 +11,9 @@ exports.run = (client, message, args) => {
             return
         }
         if(result) {
+            r = result
             embed = { 
-                title: `${result.moveName}`,
+                title: `${r.moveName}`,
                 description: `
 | Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | Category: ${r.category} |
 ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer Force." : ""} ${r.substitute ? "Bypasses Substitute." : ""} ${r.snatch ? "Can be Snatched." : ""} ${r.magicCoat ? "Can be reflected by Magic Coat." : ""}`
@@ -26,14 +27,13 @@ ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer
                         message.channel.send(`No results found for ${search}`)
                         return
                     case 1:
-                        result = result[0]
+                        r = result[0]
                         embed = { 
-                            title: `${result.moveName}`,
+                            title: `${r.moveName}`,
                             description: `
-            | Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | Category: ${r.category} |
-            ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer Force." : ""} ${r.substitute ? "Bypasses Substitute." : ""} ${r.snatch ? "Can be Snatched." : ""} ${r.magicCoat ? "Can be reflected by Magic Coat." : ""}`
+| Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | Category: ${r.category} |
+${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer Force." : ""} ${r.substitute ? "Bypasses Substitute." : ""} ${r.snatch ? "Can be Snatched." : ""} ${r.magicCoat ? "Can be reflected by Magic Coat." : ""}`
                         }
-                        message.channel.send({'embed':embed})
                         break
                     default:
                         embed = { title: `${result.length} result(s) found for "${search}"`, fields: [] }
@@ -44,6 +44,9 @@ ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer
 | Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | Category: ${r.category} |`
                             })
                         })
+                        embed.footer = {
+                            "text": "For more information, search again with one of the listed moves"
+                        }
                         break
                 }
 
