@@ -44,6 +44,20 @@ ${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer
 exports.run = (client, message, args) => {
     if(args.length == 0) return
 
+    random = message.flags.indexOf('r') > -1? true : false
+
+    if(random) {
+        Move.count().exec((err, count) => {
+            randNum = Math.floor(Math.random() * count)
+
+            Move.findOne().skip(randNum).exec((err, result) => {
+                message.channel.send({'embed':generateSingle(result)})
+            })
+        })
+
+        return
+    }
+
     var search = args.join(' ')
     Move.findOne({ 'moveName': new RegExp(`^${search}$`, 'i') }, (err, result) => {
         if(err) {
@@ -60,7 +74,7 @@ exports.run = (client, message, args) => {
                         message.channel.send(`No results found for ${search}`)
                         return
                     case 1:
-                        message.channel.send(generateSingle(result[0]))
+                        message.channel.send({'embed':generateSingle(result[0])})
                         break
                     default:
                         embed = { title: `${result.length} result(s) found for "${search}"`, fields: [] }

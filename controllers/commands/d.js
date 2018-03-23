@@ -1,9 +1,8 @@
 const logger = require('heroku-logger')
 
 exports.run = (client, message, args) => {
-    const flags = message.flags
-    const verify = flags.indexOf('-v') > -1 ? true : false
-    const help = flags.indexOf('-h') > -1 ? true : false
+    const verify = message.flags.indexOf('-v') > -1 ? true : false
+    const help = message.flags.indexOf('-h') > -1 ? true : false
     
     if(help) {
         message.channel.send(`\`\`\`Dice command usage:
