@@ -31,7 +31,7 @@ exports.run = (client, message, args) => {
             })
             break
         case 'r':
-            PingUser.findOneAndRemove(object, (err, result) => {
+            PingUser.findOneAndRemove({discord_id: message.author.id}, (err, result) => {
                 if(err) {
                     message.channel.send(`Database error removing ${message.author} from the ping list - let Monbrey know.`)
                     return
