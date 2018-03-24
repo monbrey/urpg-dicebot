@@ -52,13 +52,11 @@ exports.run = (client, message, args) => {
                         if(user.discord_id != message.author.id)
                             pingList += "<@"+user.discord_id+">\n"
                         })
-                    message.channel.send({'embed':{
-                        title: `FFA Ping List called by ${message.author.username}`,
-                        description: `
+                    message.channel.send(`FFA Ping List called by ${message.author.username}
+
 Use \`ffa -a\` to add yourself to this list, or \`ffa -r\` to be removed.
 
-${pingList}`
-                    }})
+${pingList}`)
                 })
             }
             else if(!referee) {
