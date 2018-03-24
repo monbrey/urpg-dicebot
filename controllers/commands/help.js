@@ -10,7 +10,7 @@ Any issues or feature requests, DM Monbrey or open an issue on the Github.`,
     commandBlock = ""
     client.commands.forEach(c => {
         if(c.conf.enabled)
-            commandBlock += `${c.help.name}${" ".repeat(12-c.help.name.length)}${c.help.shortDesc || c.help.description}\n`
+            commandBlock += `!${c.help.name}${" ".repeat(12-c.help.name.length)}${c.help.shortDesc || c.help.description}\n`
     })
 
     embed.fields.push({
