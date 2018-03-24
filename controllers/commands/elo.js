@@ -78,6 +78,7 @@ exports.conf = {
 exports.help = {
     name: "elo",
     category: "Game",
+    shortDesc: "Update the ELO of two users",
     description: "Updates the ELO of two mentioned users. Adds new users if required",
     usage: "!elo @winner @loser"
 }

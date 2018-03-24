@@ -133,7 +133,8 @@ exports.conf = {
 exports.help = {
     name: "move",
     category: "Game",
-    description: "Lookup move data sources from the Reffing Encylopedia. Will return a list of partial matches, or full data for exact matches.",
+    shortDesc: "Lookup move data from Refpedia",
+    description: "Lookup move data from the Reffing Encylopedia. Will return a list of partial matches, or full data for an exact match.",
     usage: `
 !move <search>    Search for move(s) with a match to the
                   <search> parameter

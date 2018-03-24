@@ -93,6 +93,7 @@ exports.conf = {
 exports.help = {
     name: "role",
     category: "Admin",
+    shortDesc: "Assign a URPG server role to a user",
     description: "Assign a Discord role to a user (requires permission)",
     usage: `
 !role <role> @user          Assign <role> to @user

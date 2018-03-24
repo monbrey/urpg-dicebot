@@ -54,6 +54,7 @@ exports.conf = {
 exports.help = {
     name: "d",
     category: "Game",
+    shortDesc: "Roll one or more die",
     description: "Rolls an x-sided dice, or y-number of x-sided dice",
     usage: `
 !d [x]                          Roll one [x] sided die
