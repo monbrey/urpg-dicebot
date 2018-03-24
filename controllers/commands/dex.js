@@ -15,5 +15,5 @@ exports.help = {
     category: "Game",
     description: "Retrieve a Pokemon from the Ultradex",
     usage: `
-!dex <pokemon>          Get the Ultradex page for <pokemon>`
+!dex <pokemon>    Get the Ultradex page for <pokemon>`
 }

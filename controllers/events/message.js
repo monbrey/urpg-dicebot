@@ -1,9 +1,9 @@
-var promises = []
+const help = require('../../util/getHelp.js')
 
 module.exports = (client, message) => {
     if(message.author.bot) return
 
-    if(message.guild) message.author_guild = message.guild.members.get(message.author.id)
+    if(message.guild) message.author_guild = message.guild.member(message.author)
 
     const settings = client.config
     message.settings = settings
@@ -23,7 +23,7 @@ module.exports = (client, message) => {
     argsIn.forEach((arg, index) => {
         //Flags
         if(arg[0] === "-") {
-            message.flags.push(arg.substring(1))
+            message.flags.push(arg.substring(1).toLowerCase())
             return
         }
 
@@ -34,7 +34,10 @@ module.exports = (client, message) => {
 
         argsOut.push(arg)
     })
-    Promise.all(promises).then(() => {
-        cmd.run(client, message, argsOut)
-    })
+
+    //Single point of call for all help commands
+    if(message.flags.includes('h')) {
+        message.channel.send({'embed':help.output(cmd.help, cmd.conf.aliases)})
+    }
+    else cmd.run(client, message, argsOut)
 }

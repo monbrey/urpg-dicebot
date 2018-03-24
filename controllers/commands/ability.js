@@ -112,6 +112,6 @@ exports.help = {
     shortDesc: "Lookup ability data from Refpedia",
     description: "Lookup ability data from the Reffing Encylopedia. Will return a list of partial matches, or full data for an exact match.",
     usage: `
-!ability <search>    Search for ability(s) with a match to the
-                     <search> parameter`
+!ability <search>    Search for ability(s) with a match to
+                     the <search> parameter`
 }

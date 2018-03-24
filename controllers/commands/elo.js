@@ -5,8 +5,6 @@ const elo = require('elo-rating')
 
 exports.run = (client, message, args) => {
     const flags = message.flags
-
-    console.log(flags)
     
     var winner = args[0]
     var loser = args[1]
