@@ -3,7 +3,7 @@ const request = require('request')
 
 exports.run = (client, message, args) => {
     message.author.send(`Ultradex page for "${args[0]}": https://pokemonurpg.com/pokemon/${args[0]}`)
-    logger.info(`${message.author.username} searched for ${args[0]} in ${message.guild.name}:${message.channel.name}`,{key:'dex'})
+    logger.info(`${message.author.username} searched for ${args[0]}`,{key:'dex'})
 }
 
 exports.conf = {

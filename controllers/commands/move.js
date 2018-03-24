@@ -122,7 +122,7 @@ exports.run = (client, message, args) => {
             })
         }
 
-        logger.info(`${message.author.username} searched for ${search} in ${message.guild.name}:${message.channel.name}`,{key:'move'})
+        logger.info(`${message.author.username} searched for ${search}`,{key:'move'})
     })
 }
 

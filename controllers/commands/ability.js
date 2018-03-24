@@ -96,7 +96,7 @@ exports.run = (client, message, args) => {
                 }
 
                 message.channel.send({'embed': embed})
-                logger.info(`${message.author.username} searched for ${search} in ${message.guild.name}:${message.channel.name}`,{key:'ability'})
+                logger.info(`${message.author.username} searched for ${search}`,{key:'ability'})
             })
         }
     })
