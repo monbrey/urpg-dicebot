@@ -32,7 +32,8 @@ exports.conf = {
 exports.help = {
     name: "help",
     category: "General",
-    description: `Displays help output.\nIf you need help using the help command, you're probably beyond help.`,
+    shortDesc: "Displays help output",
+    description: "Displays help output.\nIf you need help using the help command, you're probably beyond help.",
     usage: `!help`
 }
 
