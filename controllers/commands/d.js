@@ -42,7 +42,8 @@ exports.run = (client, message, args) => {
     var response = verify ? `${message.author.username} rolled ${roll}: verification ID #${Date.now()}` : `${message.author.username} rolled ${roll}`
     message.channel.send(response)
 
-    var log = `${Date.now()} - ${message.author.username} rolled ${roll} in ${message.guild.name || "DM"}:${message.channel.name}`
+    var log = message.guild ? `${Date.now()} - ${message.author.username} rolled ${roll} in ${message.guild.name}:${message.channel.name}` :
+    `${Date.now()} - ${message.author.username} rolled ${roll} in ${message.channel.name || "DM"}`
     logger.info(log,{key:'dice'})
 }
 
