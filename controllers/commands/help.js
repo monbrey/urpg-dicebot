@@ -19,7 +19,7 @@ Any issues or feature requests, DM Monbrey or open an issue on the Github.`,
     })
 
     embed.footer = {
-        text: "Most commands have additional help output accessive via !command -h"
+        text: "Commands have additional detailed help output accessible via !command -h"
     }
 
     message.channel.send({'embed':embed})
