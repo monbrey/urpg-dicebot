@@ -14,8 +14,6 @@ exports.run = (client, message, args) => {
         username: message.member.nickname || message.author.username
     }
 
-    console.log(message.author)
-
     switch(message.flags[0]) {
         case 'a':
             PingUser.findOneAndUpdate({discord_id: message.author.id}, object, { upsert: true }, (err, result) => {
@@ -45,7 +43,7 @@ exports.run = (client, message, args) => {
             break
         case 'p':
             channel = ['136222872371855360','269634154101080065'].includes(message.channel.id)
-            referee = message.author._roles && message.author._roles.includes('243949285438259201')
+            referee = message.member._roles && message.member._roles.includes('243949285438259201')
             if(channel && referee) {
                 pingList = ""
                 count = 1
