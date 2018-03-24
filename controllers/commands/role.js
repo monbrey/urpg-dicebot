@@ -25,7 +25,7 @@ exports.run = (client, message, args) => {
     //Assign the variables from the arguments
     var role = serverRoles[args[0]]
     var assignee = args[1]
-    var invoker = message.author_guild
+    var invoker = message.member
 
     //Error checks 
     if(args.length != 2) {

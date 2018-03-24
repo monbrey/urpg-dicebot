@@ -3,11 +3,8 @@ const help = require('../../util/getHelp.js')
 module.exports = (client, message) => {
     if(message.author.bot) return
 
-    if(message.guild) message.author_guild = message.guild.member(message.author)
-
     const settings = client.config
     message.settings = settings
-
 
     if(message.content.indexOf(settings.prefix) !== 0) return
 
