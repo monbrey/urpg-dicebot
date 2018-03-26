@@ -48,10 +48,10 @@ exports.run = (client, message, args) => {
 
     if(permission) {
         if(remove) {
-            assignee.removeRole(role.id, `Role removed by ${message.author.username}`)
+            assignee.removeRole(role.id, `Role removed by ${message.member.nickname || message.author.username}`)
             .then(() => {
-                message.channel.send(`Role "${args[0]}" removed from ${assignee.username}`)
-                logger.info(`${message.author.user} removed ${args[0]} from ${assignee.username}`)
+                message.channel.send(`Role "${args[0]}" removed from ${assignee.nickname || assignee.user.username}`)
+                logger.info(`${message.member.nickname || message.author.username} removed ${args[0]} from ${assignee.nickname || assignee.user.username}`)
             })
             .catch((err) => { 
                 if(err.message == "Missing Permissions") {
@@ -63,10 +63,10 @@ exports.run = (client, message, args) => {
             })
         }
         else {
-            assignee.addRole(role.id, `Role applied by ${message.author.username}`)
+            assignee.addRole(role.id, `Role applied by ${message.member.nickname || message.author.username}`)
             .then(() => {
-                message.channel.send(`Role "${args[0]}" given to ${assignee.username}`)
-                logger.info(`${message.author.user} gave ${args[0]} to ${assignee.username}`)
+                message.channel.send(`Role "${args[0]}" given to ${assignee.nickname || assignee.user.username}`)
+                logger.info(`${message.member.nickname || message.author.username} gave ${args[0]} to ${assignee.nickname || assignee.user.username}`)
             })
             .catch((err) => { 
                 if(err.message == "Missing Permissions") {
