@@ -65,18 +65,6 @@ exports.run = (client, message, args) => {
         return
     }
 
-    if(message.flags.indexOf('h') > -1) {
-        message.channel.send({'embed':{
-            "title":"!move",
-            "description": exports.help.description,
-            "fields": [{
-                "name": "Usage:",
-                "value": `\`\`\`${exports.help.usage}\`\`\``
-            }]
-        }})
-        return
-    }
-
     random = message.flags.indexOf('m') > -1 ? true : false
 
     if(random) {
@@ -90,6 +78,7 @@ exports.run = (client, message, args) => {
     Move.findOne({ 'moveName': new RegExp(`^${search}$`, 'i') }, (err, result) => {
         if(err) {
             message.channel.send("Unknown error querying the database - let Monbrey know.")
+            logger.error(`DB eorr when searching for ${search}`, {key: 'move'})
             return
         }
         if(result) {
