@@ -1,14 +1,7 @@
 const logger = require('heroku-logger')
 
 exports.run = (client, message, args) => {
-    const verify = message.flags.indexOf('-v') > -1 ? true : false
-    const help = message.flags.indexOf('-h') > -1 ? true : false
-    
-    if(help) {
-        message.channel.send(`\`\`\`Dice command usage:
-        ${exports.help.usage}\`\`\``)
-        return
-    }
+    const verify = message.flags.indexOf('v') > -1 ? true : false
 
     if(args.length < 1) {
         message.channel.send(`\`\`\`Invalid dice command
