@@ -52,7 +52,7 @@ exports.run = (client, message, args) => {
                         if(user.discord_id != message.author.id)
                             pingList += "<@"+user.discord_id+">\n"
                         })
-                    message.channel.send(`FFA Ping List called by ${message.author.username}
+                    message.channel.send(`FFA Ping List called by ${message.member.nickname || message.author.username}
 
 Use \`ffa -a\` to add yourself to this list, or \`ffa -r\` to be removed.
 
