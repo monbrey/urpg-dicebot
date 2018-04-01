@@ -77,6 +77,7 @@ searchByName = (message, search) => {
         }
     })
 }
+
 exports.run = (client, message, args) => {
     if(args.length == 0) return
     
