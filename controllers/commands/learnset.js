@@ -27,7 +27,7 @@ confirmSpecies = (message, speciesName, callback) => {
                         speciesNames.push(element.speciesName)
                     });
                     message.channel.send(`Multiple species found - please search again with an exact term below:
-                    ${speciesNames.join('\n')}`)
+${speciesNames.join('\n')}`)
                 }
                 else callback(result[0])
             })
