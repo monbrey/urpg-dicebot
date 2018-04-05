@@ -40,7 +40,7 @@ exports.run = (client, message, args) => {
     if(args.length == 0) return
     
     confirmSpecies(message, args[0], (response) => {
-        method = []
+        var method = []
         message.flags.includes('level') ? method.push('LEVEL-UP') : '' 
         message.flags.includes('tm') ? method.push('TM') : ''
         message.flags.includes('hm') ? method.push('HM') : ''
@@ -50,9 +50,6 @@ exports.run = (client, message, args) => {
 
         searchParam = {'speciesName': response.speciesName }
         if(method.length > 0) searchParam.method = { $in: method }
-
-        console.log(message.flags)
-        console.log(method)
 
         SpeciesMove.find(searchParam, (err, result) => {
             if(err) {
@@ -67,30 +64,38 @@ exports.run = (client, message, args) => {
                     learnset[move.method] ? learnset[move.method].push(move.moveName) : learnset[move.method] = [move.moveName]
                 })
 
-                /* 2000 character splitter I might not need
+                // 1024 character splitter
                 for(method in learnset) {
-                    learnset[method] = learnset[method].join(', ')
-                    if(learnset[method].length > 2000) {
-                        splitPoint = learnSet[method].lastIndexOf(', ', 2000)
-                        learnset[`${method} (2)`] = learnSet[method].substring(splitPoint)
-                        learnset[method] = learnSet[method].substring(0, splitPoint)
+                    learnset[method] = learnset[method].sort()
+
+                    var remainingLearnset = learnset[method].join(', ')
+                    counter = 1
+                    pieces = Math.ceil(remainingLearnset.length / 1024)
+
+                    while(remainingLearnset.length > 1024) {
+                        splitPoint = remainingLearnset.lastIndexOf(', ', Math.floor(remainingLearnset.length / pieces--))
+                        learnset[`${method}${counter++}`] = remainingLearnset.substring(0, splitPoint).split(', ')
+                        remainingLearnset = remainingLearnset.substring(splitPoint+2)
+                        delete learnset[method]
+                        if(remainingLearnset.length < 1024)
+                            learnset[`${method}${counter++}`] = remainingLearnset.split(', ')
                     }
                 }
-                */
                 
                 embed = {
                     title: `${response.speciesName} can learn ${result.length} move(s)`,
                     fields: []
                 }
 
-                if(method != '') embed.title += ` by ${message.flags.join(', ')}`
-
-                learnset['LEVEL-UP'] ? embed.fields.push({name:'By Level', value: learnset['LEVEL-UP'].sort().join(', ')}) : ''
-                learnset['TM'] ? embed.fields.push({name:'By TM', value: learnset['TM'].sort().join(', ')}) : ''
-                learnset['HM'] ? embed.fields.push({name:'By HM', value: learnset['HM'].sort().join(', ')}) : ''
-                learnset['BREEDING'] ? embed.fields.push({name:'By BM', value: learnset['BREEDING'].sort().join(', ')}) : ''
-                learnset['MOVE TUTOR'] ? embed.fields.push({name:'By MT', value: learnset['MOVE TUTOR'].sort().join(', ')}) : ''
-                learnset['SPECIAL'] ? embed.fields.push({name:'By SM', value: learnset['SPECIAL'].sort().join(', ')}) : ''
+                learnset['LEVEL-UP'] ? embed.fields.push({name:'By Level', value: learnset['LEVEL-UP'].join(', ')}) : ''
+                learnset['TM'] ? embed.fields.push({name:'By TM', value: learnset['TM'].join(', ')}) : ''
+                learnset['TM1'] ? embed.fields.push({name:'By TM', value: learnset['TM1'].join(', ')}) : ''
+                learnset['TM2'] ? embed.fields.push({name:'By TM (cont)', value: learnset['TM2'].join(', ')}) : ''
+                learnset['TM3'] ? embed.fields.push({name:'By TM (cont)', value: learnset['TM3'].join(', ')}) : ''
+                learnset['HM'] ? embed.fields.push({name:'By HM', value: learnset['HM'].join(', ')}) : ''
+                learnset['BREEDING'] ? embed.fields.push({name:'By BM', value: learnset['BREEDING'].join(', ')}) : ''
+                learnset['MOVE TUTOR'] ? embed.fields.push({name:'By MT', value: learnset['MOVE TUTOR'].join(', ')}) : ''
+                learnset['SPECIAL'] ? embed.fields.push({name:'By SM', value: learnset['SPECIAL'].join(', ')}) : ''
 
                 message.channel.send({'embed': embed})
             }
