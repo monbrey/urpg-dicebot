@@ -1,16 +1,18 @@
 const mongoose = require('mongoose')
 const logger = require('heroku-logger')
 const Move = require('../models/move')
+const Colour = require('../../util/colorMap')
 
 generateSingle = (r) => {
     embed = { 
         title: `${r.moveName}`,
         description: `
-| Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | Category: ${r.category} |
+| Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | PP: ${r.pp} | Category: ${r.category} |
 
-${r.desc} ${r.contact ? "Makes contact.": ""} ${r.sheerForce ? "Boosted by Sheer Force." : ""} ${r.substitute ? "Bypasses Substitute." : ""} ${r.snatch ? "Can be Snatched." : ""} ${r.magicCoat ? "Can be reflected by Magic Coat." : ""}`,
+${r.desc} ${r.contact ? "Makes contact. ": ""}${r.sheerForce ? "Boosted by Sheer Force. " : ""}${r.substitute ? "Bypasses Substitute. " : ""}${r.snatch ? "Can be Snatched. " : ""}${r.magicCoat ? "Can be reflected by Magic Coat. " : ""}`,
         fields: [],
-        footer: ``
+        footer: ``,
+        color: parseInt(Colour[r.moveType.toLowerCase()], 16)
     }
     if(r.note) {
         embed.footer = {
@@ -99,7 +101,7 @@ exports.run = (client, message, args) => {
                             embed.fields.push({
                                 name: `**${r.moveName}**`,
                                 value: `
-| Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | Category: ${r.category} |`
+| Type: ${r.moveType} | Power: ${r.power ? r.power : '-'} | Accuracy: ${r.accuracy ? r.accuracy : '-'} | PP: ${r.pp} | Category: ${r.category} |`
                             })
                         })
                         embed.footer = {

@@ -34,7 +34,8 @@
     "heroku-logger": "^0.3.0",
     "jimp": "^0.2.28",
     "mongoose": "^4.13.9",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
     "gulp": "^3.9.1"
