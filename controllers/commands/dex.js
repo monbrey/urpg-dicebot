@@ -37,13 +37,13 @@ exports.run = (client, message, args) => {
             }
             else console.error(err)
 
-            request(`https://bulbapedia.bulbagarden.net/wiki/${dex}_(Pokémon)`, (err, res, body) => {
+            request(`https://bulbapedia.bulbagarden.net/wiki/${dex}`, (err, res, body) => {
                 console.log(res.statusCode)
-                console.log(`https://bulbapedia.bulbagarden.net/wiki/${dex}_(Pokémon)`)
+                console.log(`https://bulbapedia.bulbagarden.net/wiki/${dex}`)
                 if(!err && res.statusCode != 404) {
                     embed.fields.push({
                         name: "Bulbapedia",
-                        value: `https://bulbapedia.bulbagarden.net/wiki/${dex}_(Pokémon)`
+                        value: `https://bulbapedia.bulbagarden.net/wiki/${dex}`
                     })
                 }
 
