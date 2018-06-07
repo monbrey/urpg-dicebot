@@ -1,0 +1,20 @@
+module.exports = {
+    "bug": "A8B820",
+    "dark": "624D3E",
+    "dragon": "7038F8",
+    "electric": "F8D030",
+    "fairy": "e898e8",
+    "fire": "D35400",
+    "fighting": "C03028",
+    "flying": "A890F0",
+    "ghost": "705898",
+    "grass": "78C850",
+    "ground": "E0C068",
+    "ice": "98D8D8",
+    "normal": "8A8A59",
+    "poison": "A040A0",
+    "psychic": "F85888",
+    "rock": "B8A038",
+    "steel": "B8B8D0",
+    "water": "6890F0"
+}
