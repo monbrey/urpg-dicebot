@@ -1,4 +1,6 @@
 const help = require('../../util/getHelp.js')
+const logger = require('heroku-logger')
+
 
 module.exports = (client, message) => {
     if(message.author.bot) return
@@ -8,6 +10,8 @@ module.exports = (client, message) => {
 
     if(message.content.indexOf(settings.prefix) !== 0) return
 
+    logger.info(`${message.author.username} in ${message.guild.name}:${message.channel.name} - ${message.content}`)
+    
     argsIn = message.content.slice(settings.prefix.length).trim().split(/ +/g);
     argsOut = []
 
@@ -36,5 +40,8 @@ module.exports = (client, message) => {
     if(message.flags.includes('h')) {
         message.channel.send({'embed':help.output(cmd.help, cmd.conf.aliases)})
     }
-    else cmd.run(client, message, argsOut)
+    else {
+        logger.info(`Running command`)
+        cmd.run(client, message, argsOut)
+    }
 }
