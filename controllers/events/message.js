@@ -10,7 +10,8 @@ module.exports = (client, message) => {
 
     if(message.content.indexOf(settings.prefix) !== 0) return
 
-    logger.info(`${message.author.username} in ${message.guild.name}:${message.channel.name} - ${message.content}`)
+    var location = message.guild ? `${message.guild.name}:${message.channel.name}` :  "DM"
+    logger.info(`${message.author.username} in ${location} - ${message.content}`)
     
     argsIn = message.content.slice(settings.prefix.length).trim().split(/ +/g);
     argsOut = []
