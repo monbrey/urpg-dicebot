@@ -3,7 +3,7 @@ const logger = require('heroku-logger')
 const urpgbot = require('./controllers/urpgbot.js')
 
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI || "mongodb://monbrey_urpg:m0nbr3y@ds249418.mlab.com:49418/monbrey-urpg", { useMongoClient: true })
+mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
 const db = mongoose.connection
 
 db.on('connected', () => {
@@ -28,9 +28,14 @@ urpgbot.on('ready', () => {
 })
 
 db.once('open', () => {
-    urpgbot.login(process.env.DISCORD_TOKEN).then(() => {
-        urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
-            user.send("URPG Dicebot started")
+    try {
+        urpgbot.login(process.env.DISCORD_TOKEN).then(() => {
+            urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
+                user.send("URPG Dicebot started")
+            })
         })
-    })
+    }
+    catch(e) {
+        logger.error(`Unable to login to Discord: ${e.message}`)
+    }
 })
