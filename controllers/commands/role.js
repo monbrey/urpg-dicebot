@@ -1,7 +1,12 @@
 const fs = require('fs')
 const logger = require('heroku-logger')
 
-var serverRoles = require('../../util/roleMap.js')
+var roleMap = require('../../util/roleMap.js')
+var roleList = []
+
+for(key in roleMap) {
+    if(roleMap[key].hasOwnProperty("id")) roleList.push(key)
+}
 
 exports.run = (client, message, args) => {
     const flags = message.flags
@@ -13,7 +18,7 @@ exports.run = (client, message, args) => {
         return
         
     if(list) {
-        message.channel.send(`Role names accepted: ${Object.keys(serverRoles).join(", ")}`)
+        message.channel.send(`Role names accepted: ${roleList.join(", ")}`)
         return
     }
 
@@ -23,13 +28,18 @@ exports.run = (client, message, args) => {
     }
 
     //Assign the variables from the arguments
-    var role = serverRoles[args[0]]
+    var role = roleMap[args[0]]
     var assignee = args[1]
     var invoker = message.member
 
     //Error checks 
     if(args.length != 2) {
         message.channel.send("Invalid role assignment command")
+        return
+    }
+
+    if(!role.hasOwnProperty("id")) {
+        message.channel.send(`Role "${args[0]}" is not yet configured to be assigned. For a list of roles, type "!role -l".`)
         return
     }
 
@@ -84,6 +94,16 @@ exports.run = (client, message, args) => {
 }
 
 exports.init = (client) => {
+    serverRoles = client.guilds.find('name', 'URPG').roles
+    unmappedRoles = []
+
+    serverRoles.forEach(sRole => {
+        if(!Object.keys(roleMap).includes(sRole.name))
+            unmappedRoles.push(sRole.name)
+    })
+
+    if(unmappedRoles.length > 0)
+        logger.info(`Unmapped roles detected: ${unmappedRoles.join(', ')}`, {key:"role"})
 }
 
 exports.conf = {
