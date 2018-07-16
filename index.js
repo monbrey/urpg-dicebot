@@ -3,7 +3,7 @@ const logger = require('heroku-logger')
 const urpgbot = require('./controllers/urpgbot.js')
 
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+mongoose.connect(process.env.MONGODB_URI || urpgbot.config.MONGODB_URI, { useMongoClient: true })
 const db = mongoose.connection
 
 db.on('connected', () => {
@@ -29,7 +29,7 @@ urpgbot.on('ready', () => {
 
 db.once('open', () => {
     try {
-        urpgbot.login(process.env.DISCORD_TOKEN).then(() => {
+        urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
             urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
                 user.send("URPG Dicebot started")
             })
