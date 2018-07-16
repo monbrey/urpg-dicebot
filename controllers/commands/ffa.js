@@ -42,7 +42,7 @@ exports.run = (client, message, args) => {
             })
             break
         case 'p':
-            channel = ['251971076077125633','376551253427093505','136222872371855360','269634154101080065'].includes(message.channel.id)
+            channel = message.channel.name.indexOf("ffa" >= 0)
             referee = message.member._roles && (message.member._roles.includes('243949285438259201') || message.member._roles.includes('252700465521885185'))
             if(channel && referee) {
                 pingList = ""
