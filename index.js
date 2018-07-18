@@ -24,7 +24,8 @@ process.on('SIGINT', function() {
 });
 
 process.on('uncaughtException', (err) => {
-    logger.error(JSON.stringify(err))
+    logger.error(err)
+    console.error(err)
 });
 
 urpgbot.on('ready', () => {
