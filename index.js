@@ -23,6 +23,10 @@ process.on('SIGINT', function() {
     });
 });
 
+process.on('uncaughtException', (err) => {
+    logger.error(JSON.stringify(err))
+});
+
 urpgbot.on('ready', () => {
     urpgbot.init()
 })
