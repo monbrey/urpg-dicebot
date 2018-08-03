@@ -25,7 +25,18 @@ process.on('SIGINT', function() {
 
 process.on('uncaughtException', (err) => {
     logger.error(err)
-    console.error(err)
+    logger.error(`Client status: ${urpgbot.status}`)
+
+    try {
+        urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
+            urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
+                user.send("URPG Dicebot started")
+            })
+        })
+    }
+    catch(e) {
+        logger.error(`Unable to login to Discord: ${e.message}`)
+    }
 });
 
 urpgbot.on('ready', () => {
