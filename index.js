@@ -27,16 +27,19 @@ process.on('uncaughtException', (err) => {
     logger.error(err)
     logger.error(`Client status: ${urpgbot.status}`)
 
-    try {
-        urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
-            urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
-                user.send("URPG Dicebot started")
+    loginInterval = setInterval(() => {
+        try {
+            urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
+                urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
+                    user.send("URPG Dicebot started")
+                    clearInterval(loginInterval)
+                })
             })
-        })
-    }
-    catch(e) {
-        logger.error(`Unable to login to Discord: ${e.message}`)
-    }
+        }
+        catch(e) {
+            logger.error(`Unable to login to Discord: ${e.message}`)
+        }
+    }, 60000)
 });
 
 urpgbot.on('ready', () => {
