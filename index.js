@@ -28,9 +28,9 @@ process.on('uncaughtException', (err) => {
     logger.error(`Client status: ${urpgbot.status}`)
 
     urpgbot.destroy();
-    urpgbot.init();
     loginInterval = setInterval(() => {
         try {
+            logger.info("Login attempted")
             urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
                 urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
                     user.send("URPG Dicebot started")
@@ -41,7 +41,7 @@ process.on('uncaughtException', (err) => {
         catch(e) {
             logger.error(`Unable to login to Discord: ${e.message}`)
         }
-    }, 60000)
+    }, 1000)
 });
 
 urpgbot.on('ready', () => {
