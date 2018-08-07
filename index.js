@@ -25,23 +25,6 @@ process.on('SIGINT', function() {
 
 process.on('uncaughtException', (err) => {
     logger.error(err)
-    logger.error(`Client status: ${urpgbot.status}`)
-
-    urpgbot.destroy();
-    loginInterval = setInterval(() => {
-        try {
-            logger.info("Login attempted")
-            urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
-                urpgbot.fetchUser(urpgbot.config.ownerID).then((user) => {
-                    user.send("URPG Dicebot started")
-                    clearInterval(loginInterval)
-                })
-            })
-        }
-        catch(e) {
-            logger.error(`Unable to login to Discord: ${e.message}`)
-        }
-    }, 1000)
 });
 
 urpgbot.on('ready', () => {

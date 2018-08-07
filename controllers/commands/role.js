@@ -5,7 +5,8 @@ var roleMap = require('../../util/roleMap.js')
 var roleList = []
 
 for(key in roleMap) {
-    if(roleMap[key].hasOwnProperty("id")) roleList.push(key)
+    if(roleMap.hasOwnProperty(key))
+        if(roleMap[key].hasOwnProperty("id")) roleList.push(key)
 }
 
 exports.run = (client, message, args) => {
@@ -38,13 +39,13 @@ exports.run = (client, message, args) => {
         return
     }
 
-    if(!role.hasOwnProperty("id")) {
-        message.channel.send(`Role "${args[0]}" is not yet configured to be assigned. For a list of roles, type "!role -l".`)
+    if(!role) {
+        message.channel.send(`Role "${args[0]}" not found. For a list of roles, type "!role -l".`)
         return
     }
 
-    if(!role) {
-        message.channel.send(`Role "${args[0]}" not found. For a list of roles, type "!role -l".`)
+    if(!role.hasOwnProperty("id")) {
+        message.channel.send(`Role "${args[0]}" is not yet configured to be assigned. For a list of roles, type "!role -l".`)
         return
     }
 
