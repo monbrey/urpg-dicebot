@@ -27,6 +27,8 @@ process.on('uncaughtException', (err) => {
     logger.error(err)
     logger.error(`Client status: ${urpgbot.status}`)
 
+    urpgbot.destroy();
+    urpgbot.init();
     loginInterval = setInterval(() => {
         try {
             urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
