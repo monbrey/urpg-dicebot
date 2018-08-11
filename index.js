@@ -31,6 +31,12 @@ urpgbot.on('ready', () => {
     urpgbot.init()
 })
 
+urpgbot.on('error', (err, file, line) => {
+    //So APPARENTLY the mere EXISTENCE of this error handler
+    //will make the bot auto-reconnect. Might as well log too
+    logger.error(`Error ${err} in ${file}:${line}`)
+})
+
 db.once('open', () => {
     try {
         urpgbot.login(process.env.DISCORD_TOKEN || urpgbot.config.DISCORD_TOKEN).then(() => {
