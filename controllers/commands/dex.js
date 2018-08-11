@@ -30,7 +30,7 @@ exports.run = (client, message, args) => {
                 if(JSON.parse(body).dex != "") {
                     embed.fields.push({
                         name: "URPG Ultradex",
-                        value: `https://pokemonurpg.com/pokemon/${dex}`
+                        value: `https://pokemonurpg.com/pokemon/${encodeURI(JSON.parse(body).name).replace(/\./g, "%2E")}`
                     })
                     embed.color = parseInt(Colour[data.type1.toLowerCase()], 16)
                 }
@@ -38,8 +38,6 @@ exports.run = (client, message, args) => {
             else console.error(err)
 
             request(`https://bulbapedia.bulbagarden.net/wiki/${dex}`, (err, res, body) => {
-                console.log(res.statusCode)
-                console.log(`https://bulbapedia.bulbagarden.net/wiki/${dex}`)
                 if(!err && res.statusCode != 404) {
                     embed.fields.push({
                         name: "Bulbapedia",
