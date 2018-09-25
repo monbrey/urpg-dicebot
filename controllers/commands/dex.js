@@ -1,6 +1,5 @@
 const logger = require('heroku-logger')
 const request = require('request')
-const Species = require('../models/species')
 const Colour = require('../../util/colorMap')
 
 exports.run = (client, message, args) => {

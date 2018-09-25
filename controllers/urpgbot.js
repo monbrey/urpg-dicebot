@@ -1,8 +1,9 @@
 const Discord = require('discord.js')
-const { promisify } = require('util')
+const {
+    promisify
+} = require('util')
 const readdir = promisify(require('fs').readdir)
 const Enmap = require('enmap')
-const EnmapLevel = require('enmap-level')
 
 var client = new Discord.Client()
 client.config = require('../config.js')
@@ -19,14 +20,14 @@ client.loadCommand = (commandName) => {
             command.init(client)
         }
         client.commands.set(command.help.name, command)
-        if(command.conf.aliases) {
+        if (command.conf.aliases) {
             command.conf.aliases.forEach(alias => {
                 client.aliases.set(alias, command.help.name)
             });
         }
         return false
     } catch (e) {
-      return `Unable to load command ${commandName}: ${e.message}`
+        return `Unable to load command ${commandName}: ${e.message}`
     }
 }
 
@@ -34,7 +35,7 @@ client.init = async () => {
     const cmdFiles = await readdir(`${__dirname}/commands/`)
     //client.logger.log(`Loading a total of ${cmdFiles.length} commands.`)
     cmdFiles.forEach(f => {
-        if(!f.endsWith('.js')) return
+        if (!f.endsWith('.js')) return
         const response = client.loadCommand(f)
         if (response) console.log(response)
     })
