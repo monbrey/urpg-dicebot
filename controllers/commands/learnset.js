@@ -58,7 +58,6 @@ exports.run = (client, message, args) => {
                 return
             }
             if(result) {
-                console.log(result)
                 learnset = []
                 
                 result.forEach((move) => {
