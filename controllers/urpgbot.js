@@ -5,7 +5,7 @@ const {
 const readdir = promisify(require('fs').readdir)
 const Enmap = require('enmap')
 
-var client = new Discord.Client()
+var client = new Discord.Client({disableEveryone: true})
 client.config = require('../config.js')
 
 client.commands = new Enmap()
